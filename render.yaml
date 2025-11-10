@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: jordain-kin-music
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: ADMIN_PASSWORD
+        value: jkin33

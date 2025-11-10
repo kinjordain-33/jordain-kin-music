@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="sw">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jordain Kin Music — Blog ya Muziki</title>
+  <style>
+    :root{--bg:#0b0b0b;--gold:#d4af37;--blue:#1e86ff;--muted:#222}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, Roboto, 'Segoe UI', sans-serif;background:var(--bg);color:#eee}
+    header{padding:20px 18px;border-bottom:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;gap:14px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo svg{width:56px;height:56px}
+    .logo h1{margin:0;font-size:22px;letter-spacing:1px}
+    .logo .m{color:var(--blue)}
+    nav{margin-left:auto}
+    nav a{color:var(--gold);text-decoration:none;margin:0 8px;font-weight:600}
+    main{max-width:980px;margin:24px auto;padding:0 14px}
+
+    h2.section{font-size:36px;margin:18px 0;color:var(--gold);text-align:center}
+
+    .player-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .song{display:flex;gap:12px;align-items:center;padding:12px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:10px}
+    .song img{width:64px;height:64px;border-radius:6px;object-fit:cover}
+    .song .meta{display:flex;flex-direction:column}
+    .song .title{font-size:16px;font-weight:700}
+    .controls{display:flex;gap:8px;align-items:center}
+    .audio{width:260px}
+
+    .admin-area{margin-top:12px;background:rgba(255,255,255,0.01);padding:12px;border-radius:8px;color:#ddd}
+    .admin-btn{padding:8px 10px;border-radius:6px;background:var(--gold);border:none;color:#111;font-weight:700;cursor:pointer}
+
+    .form-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+    input, button, textarea{font-size:14px}
+
+    footer{margin:26px 0 18px;color:#aaa;text-align:center;font-size:14px}
+
+    @media(max-width:700px){
+      .audio{width:160px}
+      .song{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 64 64" aria-hidden>
+        <defs>
+          <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#d4af37"/><stop offset="1" stop-color="#1e86ff"/></linearGradient>
+        </defs>
+        <g transform="translate(6,6)">
+          <path d="M10 32v-8a14 14 0 0 1 28 0v8" fill="none" stroke="url(#g)" stroke-width="4" stroke-linecap="round"/>
+          <rect x="-2" y="22" width="8" height="14" rx="3" fill="#d4af37"/>
+          <rect x="42" y="22" width="8" height="14" rx="3" fill="#1e86ff"/>
+        </g>
+      </svg>
+      <div>
+        <h1><span style="color:var(--gold)">Jordain Kin</span> <span class="m">MUSIC</span></h1>
+        <div style="font-size:12px;color:#9a9a9a">Blog ya Muziki — Kupakua & Kushare</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#nyumbani">NYUMBANI</a>
+      <a href="#nyimbo">NYIMBO</a>
+      <a href="#video">VIDEO</a>
+      <a href="#pakua">PAKUA</a>
+      <a href="#mawasiliano">MAWASILIANO</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="nyumbani">
+      <h2 class="section">NYIMBO MPYA</h2>
+      <div id="songsContainer" class="player-card">
+        <div style="color:#bbb;padding:18px" id="loadingMsg">Inapakia orodha ya nyimbo...</div>
+      </div>
+
+      <div class="admin-area" id="adminArea">
+        <div><strong>Sehemu ya Admin (Private)</strong> — Ingiza nenosiri ili kupakia wimbo.</div>
+        <div class="form-row" style="margin-top:8px">
+          <input id="adminPass" type="password" placeholder="Nenosiri la admin" style="padding:8px;border-radius:6px;border:1px solid #333;background:#0b0b0b;color:#fff">
+          <button id="unlockBtn" class="admin-btn">Fungua Admin</button>
+        </div>
+
+        <div id="uploadForm" style="display:none;margin-top:12px">
+          <div style="color:#bbb">Taarifa za wimbo:</div>
+          <div class="form-row">
+            <input id="titleInput" type="text" placeholder="Jina la wimbo" style="padding:8px;border-radius:6px;border:1px solid #333;background:#0b0b0b;color:#fff;min-width:200px">
+            <input id="audioInput" type="file" accept="audio/*">
+            <input id="coverInput" type="file" accept="image/*">
+            <button id="uploadBtn" class="admin-btn">Pakia Wimbo</button>
+          </div>
+          <div style="color:#999;font-size:13px;margin-top:8px">Nenosiri ulilotaka: <strong>jkin33</strong> (unaweza kubadilisha kwenye server)</div>
+          <div id="uploadStatus" style="margin-top:8px;color:#9a9a9a"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="video" style="margin-top:22px">
+      <h2 class="section">VIDEO</h2>
+      <div style="color:#bbb;padding:12px" class="player-card">
+        Tumia sehemu ya Video kwenye Admin (hii demo inakuwezesha kuonyesha video kwa kutumia YouTube link).
+        <div style="margin-top:8px" id="videoArea"></div>
+      </div>
+    </section>
+
+    <section id="pakua" style="margin-top:18px">
+      <h2 class="section">PAKUA</h2>
+      <div id="downloadList" class="player-card" style="padding:12px;color:#ddd">Orodha ya vitufe vya kupakua itakuonekana hapa.</div>
+    </section>
+
+    <section id="mawasiliano" style="margin-top:18px">
+      <h2 class="section">MAWASILIANO</h2>
+      <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;color:#bbb">
+        <p>Barua pepe: <strong>jordainkinmusic@example.com</strong></p>
+        <p>Instagram / TikTok: <strong>@jordainkinmusic</strong></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> Jordain Kin Music — Hakimiliki.
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    const songsContainer = document.getElementById('songsContainer');
+    const downloadList = document.getElementById('downloadList');
+    const loadingMsg = document.getElementById('loadingMsg');
+
+    async function loadSongs(){
+      loadingMsg.innerText = 'Inapakia orodha ya nyimbo...';
+      try {
+        const res = await fetch('/songs');
+        const list = await res.json();
+        renderSongs(list);
+      } catch (e) {
+        loadingMsg.innerText = 'Hitilafu katika kupata nyimbo. Server haiwezi kufikiwa.';
+        console.error(e);
+      }
+    }
+
+    function renderSongs(list){
+      songsContainer.innerHTML = '';
+      if(!list || list.length===0){
+        songsContainer.innerHTML = '<div style="color:#bbb;padding:18px">Hakuna nyimbo sasa.</div>';
+        downloadList.innerHTML = '<div style="color:#888">Hakuna nyimbo za kupakua.</div>';
+        return;
+      }
+      list.forEach(s=>{
+        const div = document.createElement('div');
+        div.className = 'song';
+        div.innerHTML = `
+          <img src="${s.cover_url || 'data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'64\\' height=\\'64\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23222%27/></svg>'}" alt="cover">
+          <div style="flex:1">
+            <div class="meta"><div class="title">${escapeHtml(s.title)}</div><div style="color:#aaa;font-size:13px">${s.filename}</div></div>
+            <div class="controls" style="margin-top:8px">
+              <audio class="audio" controls src="${s.url}"></audio>
+              <a href="${s.url}" download="${s.filename}"><button style="padding:8px 10px;border-radius:6px;background:var(--gold);border:none;color:#111;font-weight:700">PAKUA</button></a>
+            </div>
+          </div>
+        `;
+        songsContainer.appendChild(div);
+      });
+
+      // download list
+      downloadList.innerHTML = '';
+      list.forEach(s=>{
+        const row = document.createElement('div');
+        row.style.display='flex';row.style.justifyContent='space-between';row.style.alignItems='center';row.style.padding='8px 6px';
+        row.style.borderBottom='1px solid rgba(255,255,255,0.02)';
+        row.innerHTML = `<div>${escapeHtml(s.title)} <small style="color:#999">(${s.filename})</small></div><a href="${s.url}" download="${s.filename}"><button style="padding:8px 12px;border-radius:8px;background:var(--gold);border:none;color:#111;font-weight:700">PAKUA</button></a>`;
+        downloadList.appendChild(row);
+      });
+    }
+
+    // Admin unlock
+    const unlockBtn = document.getElementById('unlockBtn');
+    const adminPass = document.getElementById('adminPass');
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const audioInput = document.getElementById('audioInput');
+    const coverInput = document.getElementById('coverInput');
+    const titleInput = document.getElementById('titleInput');
+    const uploadStatus = document.getElementById('uploadStatus');
+
+    unlockBtn.addEventListener('click', ()=>{
+      const pass = adminPass.value.trim();
+      if(!pass){ alert('Tafadhali ingiza nenosiri'); return; }
+      // store admin password in memory for this session (used when uploading)
+      window._ADMIN_PASS = pass;
+      uploadForm.style.display = '';
+      adminPass.value = '';
+      adminPass.placeholder = 'Admin imefunguka';
+      uploadStatus.innerText = 'Admin imefunguka. Sasa unaweza kupakia wimbo.';
+    });
+
+    uploadBtn.addEventListener('click', async ()=>{
+      const f = audioInput.files[0];
+      if(!f){ alert('Chagua faili la audio'); return; }
+      const title = titleInput.value.trim() || f.name.replace(/\.[^/.]+$/,'');
+      const form = new FormData();
+      form.append('audio', f);
+      const c = coverInput.files[0];
+      if(c) form.append('cover', c);
+      form.append('title', title);
+      form.append('admin_password', window._ADMIN_PASS || '');
+
+      uploadStatus.innerText = 'Inapakia...';
+      try {
+        const res = await fetch('/upload', { method: 'POST', body: form });
+        const data = await res.json();
+        if(res.ok){
+          uploadStatus.innerText = 'Mafanikio: ' + (data.message || 'Wimbo umewekwa');
+          // clear inputs
+          audioInput.value = ''; coverInput.value=''; titleInput.value='';
+          // refresh list
+          loadSongs();
+        } else {
+          uploadStatus.innerText = 'Hitilafu: ' + (data.error || data.message || 'server error');
+        }
+      } catch(e){
+        uploadStatus.innerText = 'Hitilafu ya network.';
+        console.error(e);
+      }
+    });
+
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}) }
+
+    // initial load
+    loadSongs();
+  </script>
+</body>
+</html>
